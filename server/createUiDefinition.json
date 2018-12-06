@@ -56,7 +56,7 @@
                 "type": "Microsoft.Common.TextBox",
                 "label": "Memory in Gb",
                 "toolTip": "The amount of memory to allocate to the container in gigabytes.",
-                "defaultValue": "1.5",
+                "defaultValue": "2.0",
                 "constraints": {
                     "required": true,
                     "regex": "^[0-9]+(\\.[0-9]+)?$",

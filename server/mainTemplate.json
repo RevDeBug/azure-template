@@ -35,7 +35,7 @@
       "metadata": {
         "description": "The amount of memory to allocate to the container in gigabytes."
       },
-      "defaultValue": "1.5"
+      "defaultValue": "2.0"
     },
     "organizationId": {
       "type": "string",
