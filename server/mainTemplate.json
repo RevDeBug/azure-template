@@ -61,6 +61,10 @@
                 {
                   "protocol": "tcp",
                   "port": 42734
+                },
+                {
+                  "protocol": "tcp",
+                  "port": 5000
                 }
               ]
   },
