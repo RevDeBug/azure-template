@@ -151,7 +151,7 @@
             "properties":{
                 "securityRules":[
                     {
-                        "name":"Service ports",
+                        "name":"servicePorts",
                         "properties":{
                             "priority":1000,
                             "protocol":"TCP",
@@ -164,7 +164,7 @@
                         }
                     },
                     {
-                        "name":"Web portal",
+                        "name":"webPortal",
                         "properties":{
                             "priority":1000,
                             "protocol":"TCP",
