@@ -25,12 +25,20 @@ install_docker()
     # 3. Installing latest docker
     sudo apt-get update
     sudo apt-get -y install docker-ce docker-ce-cli containerd.io   
+    
+    # 4. Installing docker-compose
+    sudo curl -L "https://github.com/docker/compose/releases/download/1.25.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    sudo chmod +x /usr/local/bin/docker-compose
 }
 
 #RevDeBug DevOps Monitor installation
 install_rdm()
 {
-    sudo docker run -d --name rdb_server_node -p 42733-42734:42733-42734 -p 5000:5000 -v /var/revdebug/server/repo:/app/RevDeBug:rw -e REVDEBUG_AUTH="$1" -e CONTINUOUS_CONNECTION_STARTUP_MODE='crash' docker.revdebug.com/server
+    wget https://raw.githubusercontent.com/RevDeBug/azure-template/feat/vm/server/resources/docker-compose.yml
+
+    export REVDEBUG_AUTH="$1"
+    
+    sudo -E docker-compose -p rdb up -d
 }
 
 if [ -z "$1" ]; then
