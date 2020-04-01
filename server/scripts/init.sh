@@ -34,11 +34,9 @@ install_docker()
 #RevDeBug DevOps Monitor installation
 install_rdm()
 {
-    wget https://raw.githubusercontent.com/RevDeBug/azure-template/feat/vm/server/resources/docker-compose.yml
+    wget https://portal.revdebug.com/UserPanel/DownloadComposeFile/$1
 
-    export REVDEBUG_AUTH="$1"
-    
-    sudo -E docker-compose -p rdb up -d
+    sudo docker-compose -p rdb up -d
 }
 
 if [ -z "$1" ]; then
