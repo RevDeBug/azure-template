@@ -280,7 +280,7 @@
                         "settings":{
                             "skipDos2Unix":false,
                             "fileUris":[
-                                "https://raw.githubusercontent.com/RevDeBug/azure-template/feat/vm/server/scripts/init.sh"
+                                "https://raw.githubusercontent.com/RevDeBug/azure-template/master/server/scripts/init.sh"
                             ]
                         },
                         "protectedSettings":{
