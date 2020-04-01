@@ -34,7 +34,7 @@ install_docker()
 #RevDeBug DevOps Monitor installation
 install_rdm()
 {
-    wget https://portal.revdebug.com/UserPanel/DownloadComposeFile/$1
+    wget -O docker-compose.yml https://portal.revdebug.com/UserPanel/DownloadComposeFile/$1
 
     sudo docker-compose -p rdb up -d
 }
