@@ -34,6 +34,9 @@ install_docker()
 #RevDeBug DevOps Monitor installation
 install_rdm()
 {
+    # Move to default user's home directory. We don't want to create docker-compose file within a temporary wa agent directory.
+    cd
+
     git clone https://github.com/RevDeBug/revdebug-server-docker-compose ./revdebug
     
     cd revdebug
@@ -57,7 +60,7 @@ else
   echo 'Docker already installed.'
 fi
 
-if [ ! "$(sudo docker ps -a | grep rdb_server_node)" ]; then 
+if [ ! "$(sudo docker ps -a | grep devops)" ]; then 
   echo 'Running RevDeBug container...'
   install_rdm "$1"
 else
