@@ -310,7 +310,7 @@
                             ]
                         },
                         "protectedSettings":{
-                            "commandToExecute":"[concat('sudo bash init.sh ', parameters('organizationId'))]"
+                            "commandToExecute":"bash init.sh <organizationId>"
                         }
                     }
                 }
