@@ -85,10 +85,10 @@
                 "description":"Name of the Network Security Group"
             }
         },
-        "organizationId":{
+        "organizationKeyCode":{
             "type":"string",
             "metadata":{
-                "description":"RevDeBug organization ID."
+                "description":"RevDeBug organization key code."
             }
         }
     },
@@ -310,7 +310,7 @@
                             ]
                         },
                         "protectedSettings":{
-                            "commandToExecute":"[concat('bash init.sh ', parameters('organizationId'), ' /home/', parameters('adminUsername'))]"
+                            "commandToExecute":"[concat('bash init.sh ', parameters('organizationKeyCode'), ' /home/', parameters('adminUsername'))]"
                         }
                     }
                 }
