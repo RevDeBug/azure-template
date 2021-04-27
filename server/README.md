@@ -10,12 +10,16 @@ When using this template you may change any option according to your needs. It i
 
 ## Deployment
 You can deploy this template on Azure using this button:
-<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FRevDeBug%2Fazure-template%2Fmaster%2Fserver%2Fazuredeploy.json" target="_blank">
-	<img src="http://azuredeploy.net/deploybutton.png"/>
-</a>
+
+<p align="center">
+	<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FRevDeBug%2Fazure-template%2Fmaster%2Fserver%2Fazuredeploy.json" target="_blank">
+		<img src="http://azuredeploy.net/deploybutton.png"/>
+	</a>
+</p>
 
 ## Updating the RevDeBug DevOps Monitor
 To update the RevDeBug DevOps Monitor, you have to log in into the virtual machine using SSH client of your choice. Default settings on the Network Security Group prohibit any direct connection via the internet to SSH port, so you will have to either use VPN/[Azure Private Link](https://azure.microsoft.com/en-us/services/private-link/) to access the virtual machine, or [modify Network Security Group](https://docs.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview) settings to accommodate your needs.
+
 After securing the connection with your virtual machine, you should be able to see the `revdebug` directory inside your default user's home directory. This is where the RevDeBug docker compose files are cloned on the virtual machine as part of the Azure Deploy procedure. You will need to make sure that you are in that directory before running [update commands listed in the documentation](https://revdebug.gitbook.io/revdebug/updating-revdebug-server).
 ## Application data location
 Application data for the RevDeBug DevOps Monitor is stored in the `/var/revdebug/server` directory.
