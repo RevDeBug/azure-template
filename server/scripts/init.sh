@@ -34,8 +34,10 @@ install_docker()
 #RevDeBug DevOps Monitor installation
 install_rdm()
 {
-    # Move to default user's home directory. We don't want to create docker-compose file within a temporary wa agent directory.
-    cd
+    # Change workdir. For Azure deployment this normally should be a default user's home directory.
+    if [ -n "$2" ]; then
+        cd $2
+    fi
 
     git clone https://github.com/RevDeBug/revdebug-server-docker-compose ./revdebug
     
@@ -62,7 +64,7 @@ fi
 
 if [ ! "$(sudo docker ps -a | grep devops)" ]; then 
   echo 'Running RevDeBug container...'
-  install_rdm "$1"
+  install_rdm "$1" "$2"
 else
   echo 'RevDeBug container already created.'
 fi

@@ -310,7 +310,7 @@
                             ]
                         },
                         "protectedSettings":{
-                            "commandToExecute":"[concat('bash init.sh ', parameters('organizationId'))]"
+                            "commandToExecute":"[concat('bash init.sh ', parameters('organizationId'), ' /home/', parameters('adminUsername'))]"
                         }
                     }
                 }
