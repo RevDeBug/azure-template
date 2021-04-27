@@ -151,7 +151,7 @@
             "properties":{
                 "securityRules":[
                     {
-                        "name":"appPorts",
+                        "name":"webHttpPort",
                         "properties":{
                             "priority":1000,
                             "protocol":"*",
@@ -160,7 +160,46 @@
                             "sourceAddressPrefix":"*",
                             "sourcePortRange":"*",
                             "destinationAddressPrefix":"*",
-                            "destinationPortRange":"80,443,11800,42733-42735"
+                            "destinationPortRange":"80"
+                        }
+                    },
+                    {
+                        "name":"webHttpsPort",
+                        "properties":{
+                            "priority":1001,
+                            "protocol":"*",
+                            "access":"Allow",
+                            "direction":"Inbound",
+                            "sourceAddressPrefix":"*",
+                            "sourcePortRange":"*",
+                            "destinationAddressPrefix":"*",
+                            "destinationPortRange":"443"
+                        }
+                    },
+                    {
+                        "name":"apmPort",
+                        "properties":{
+                            "priority":1002,
+                            "protocol":"*",
+                            "access":"Allow",
+                            "direction":"Inbound",
+                            "sourceAddressPrefix":"*",
+                            "sourcePortRange":"*",
+                            "destinationAddressPrefix":"*",
+                            "destinationPortRange":"11800"
+                        }
+                    },
+                    {
+                        "name":"servicePorts",
+                        "properties":{
+                            "priority":1003,
+                            "protocol":"*",
+                            "access":"Allow",
+                            "direction":"Inbound",
+                            "sourceAddressPrefix":"*",
+                            "sourcePortRange":"*",
+                            "destinationAddressPrefix":"*",
+                            "destinationPortRange":"42733-42735"
                         }
                     }
                 ]
