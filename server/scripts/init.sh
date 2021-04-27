@@ -10,7 +10,7 @@ install_docker()
     sudo apt-get -y install \
         apt-transport-https \
         ca-certificates \
-        curl \
+        curl git\
         gnupg-agent \
         software-properties-common
 
@@ -27,16 +27,22 @@ install_docker()
     sudo apt-get -y install docker-ce docker-ce-cli containerd.io   
     
     # 4. Installing docker-compose
-    sudo curl -L "https://github.com/docker/compose/releases/download/1.25.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    sudo curl -L "https://github.com/docker/compose/releases/download/1.29.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
     sudo chmod +x /usr/local/bin/docker-compose
 }
 
 #RevDeBug DevOps Monitor installation
 install_rdm()
 {
-    wget -O docker-compose.yml https://portal.revdebug.com/UserPanel/DownloadComposeFile/$1
+    git clone https://github.com/RevDeBug/revdebug-server-docker-compose ./revdebug
+    
+    cd revdebug
+    cat > .env <<ENV
+# Organization ID obtained from portal.revdebug.com
+REVDEBUG_AUTH=$1
+ENV
 
-    sudo docker-compose -p rdb up -d
+    sudo docker-compose up -d
 }
 
 if [ -z "$1" ]; then

@@ -48,17 +48,15 @@
         },
         "VmSize":{
             "type":"string",
-            "defaultValue":"Standard_B2s",
+            "defaultValue":"Standard_D4s_v3",
             "allowedValues":[
-                "Standard_B2s",
-                "Standard_B2ms",
                 "Standard_B4ms",
-                "Standard_D2s_v3",
                 "Standard_D4s_v3",
-                "Standard_D2_v3",
                 "Standard_D4_v3",
-                "Standard_D2_v2",
-                "Standard_D3_v2"
+                "Standard_D4a_v4",
+                "Standard_D8a_v4",
+                "Standard_D4d_v4",
+                "Standard_D8d_v4"
             ],
             "metadata":{
                 "description":"The size of the VM"
@@ -151,29 +149,16 @@
             "properties":{
                 "securityRules":[
                     {
-                        "name":"servicePorts",
+                        "name":"appPorts",
                         "properties":{
                             "priority":1000,
-                            "protocol":"TCP",
+                            "protocol":"*",
                             "access":"Allow",
                             "direction":"Inbound",
                             "sourceAddressPrefix":"*",
                             "sourcePortRange":"*",
                             "destinationAddressPrefix":"*",
-                            "destinationPortRange":"42733-42734"
-                        }
-                    },
-                    {
-                        "name":"webPortal",
-                        "properties":{
-                            "priority":1001,
-                            "protocol":"TCP",
-                            "access":"Allow",
-                            "direction":"Inbound",
-                            "sourceAddressPrefix":"*",
-                            "sourcePortRange":"*",
-                            "destinationAddressPrefix":"*",
-                            "destinationPortRange":"5000"
+                            "destinationPortRange":"80,443,11800,42733-42735"
                         }
                     }
                 ]
