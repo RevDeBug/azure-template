@@ -42,7 +42,7 @@ install_rdm()
         cd $REVDEBUG_WORKDIR
     fi
     
-    git clone https://github.com/RevDeBug/revdebug-server-docker-compose ./revdebug
+    git clone --branch test/210511 https://github.com/RevDeBug/revdebug-server-docker-compose ./revdebug
     
     cd revdebug
     cat > .env <<ENV
