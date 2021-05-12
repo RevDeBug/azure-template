@@ -31,18 +31,24 @@
                 "description":"SSH Key or password for the Virtual Machine. SSH key is recommended."
             }
         },
-        "vmName":{
-            "type":"string",
-            "defaultValue":"rdbVM",
-            "metadata":{
-                "description":"The name of you Virtual Machine."
+        "letsEncryptMail": {
+            "type": "string",
+            "metadata": {
+                "description": "The e-mail address to be used when requesting a Let's Encrypt certificate."
             }
         },
         "dnsLabelPrefix":{
             "type":"string",
             "defaultValue":"[toLower(concat('rdbvm-', uniqueString(resourceGroup().id)))]",
             "metadata":{
-                "description":"Unique DNS Name for the Public IP used to access the Virtual Machine."
+                "description":"Unique DNS Name for the Public IP used to access the Virtual Machine. It must be lowercase. It should match the following regular expression, or it will raise an error: ^[a-z][a-z0-9-]{1,61}[a-z0-9]$"
+            }
+        },
+        "vmName":{
+            "type":"string",
+            "defaultValue":"rdbVM",
+            "metadata":{
+                "description":"The name of your Virtual Machine."
             }
         },
         "VmSize":{
@@ -299,11 +305,11 @@
                         "settings":{
                             "skipDos2Unix":false,
                             "fileUris":[
-                                "https://raw.githubusercontent.com/RevDeBug/azure-template/master/server/scripts/init.sh"
+                                "https://raw.githubusercontent.com/RevDeBug/azure-template/test/210511/server/scripts/init.sh"
                             ]
                         },
                         "protectedSettings":{
-                            "commandToExecute":"[concat('bash init.sh ', parameters('organizationKeyCode'), ' /home/', parameters('adminUsername'))]"
+                            "commandToExecute":"[concat('bash init.sh ', parameters('organizationKeyCode'), ' /home/', parameters('adminUsername'), ' ', parameters('letsEncryptMail'), ' ',reference(variables('publicIPAddressName')).dnsSettings.fqdn)]"
                         }
                     }
                 }
