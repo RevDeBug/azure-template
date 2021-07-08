@@ -12,9 +12,9 @@ When using this template you may change any option according to your needs. It i
 You can deploy this template on Azure using this button:
 
 <p align="center">
-	<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FRevDeBug%2Fazure-template%2Fmaster%2Fserver%2Fazuredeploy.json" target="_blank">
-		<img src="http://azuredeploy.net/deploybutton.png"/>
-	</a>
+    <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FRevDeBug%2Fazure-template%2Fmaster%2Fserver%2Fazuredeploy.json" target="_blank">
+        <img src="http://azuredeploy.net/deploybutton.png"/>
+    </a>
 </p>
 
 ## Updating the RevDeBug DevOps Monitor
