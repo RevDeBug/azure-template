@@ -43,11 +43,8 @@ install_rdm()
     fi
     
     git clone https://github.com/RevDeBug/revdebug-server-docker-compose ./revdebug
-        
+    
     cd revdebug
-    
-    git checkout feat/licensing
-    
     cat > .env <<ENV
 # Organization ID obtained from portal.revdebug.com
 REVDEBUG_SERVER_NAME=$REVDEBUG_SERVER_NAME
