@@ -80,15 +80,15 @@
     },
     "variables":{
         "ubuntuOSVersion":"18.04-LTS",
+        "virtualNetworkName": "vNet",
+        "subnetName": "subnetName",
+        "networkSecurityGroupName": "SecGroupNet",
         "publicIpAddressName":"[concat(parameters('vmName'), 'PublicIP' )]",
         "networkInterfaceName":"[concat(parameters('vmName'),'NetInt')]",
         "subnetRef":"[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), parameters('subnetName'))]",
         "osDiskType":"Standard_LRS",
         "subnetAddressPrefix":"10.1.0.0/24",
         "addressPrefix":"10.1.0.0/16",
-        "virtualNetworkName": "vNet",
-        "subnetName": "subnetName",
-        "networkSecurityGroupName": "SecGroupNet",
         "linuxConfiguration":{
             "disablePasswordAuthentication":true,
             "ssh":{
