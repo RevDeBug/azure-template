@@ -96,7 +96,7 @@
             "metadata":{
                 "description":"Keycloak administrative user password."
             }
-        },
+        }
     },
     "variables":{
         "ubuntuOSVersion":"18.04-LTS",
