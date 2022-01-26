@@ -64,27 +64,6 @@
                 "description":"The size of the VM"
             }
         },
-        "virtualNetworkName":{
-            "type":"string",
-            "defaultValue":"vNet",
-            "metadata":{
-                "description":"Name of the VNET"
-            }
-        },
-        "subnetName":{
-            "type":"string",
-            "defaultValue":"Subnet",
-            "metadata":{
-                "description":"Name of the subnet in the virtual network"
-            }
-        },
-        "networkSecurityGroupName":{
-            "type":"string",
-            "defaultValue":"SecGroupNet",
-            "metadata":{
-                "description":"Name of the Network Security Group"
-            }
-        },
         "keycloakAdminUsername":{
             "type":"string",
             "defaultValue":"admin",
@@ -107,6 +86,9 @@
         "osDiskType":"Standard_LRS",
         "subnetAddressPrefix":"10.1.0.0/24",
         "addressPrefix":"10.1.0.0/16",
+        "virtualNetworkName": "vNet",
+        "subnetName": "subnetName",
+        "networkSecurityGroupName": "SecGroupNet",
         "linuxConfiguration":{
             "disablePasswordAuthentication":true,
             "ssh":{
