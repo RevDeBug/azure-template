@@ -48,7 +48,7 @@ install_rdm()
     cat > .env <<ENV
 # Organization ID obtained from portal.revdebug.com
 REVDEBUG_SERVER_NAME=$REVDEBUG_SERVER_NAME
-REVDEBUG_AUTH_OPENID_ADDRESS=http://${REVDEBUG_SERVER_NAME}/auth/realms/rdbRealm
+REVDEBUG_AUTH_OPENID_ADDRESS=https://${REVDEBUG_SERVER_NAME}/auth/realms/rdbRealm
 REVDEBUG_SSL_CERT_PATH=${SSL_CERT_PATH:-"/etc/letsencrypt/live/$REVDEBUG_SERVER_NAME/fullchain.pem"}
 REVDEBUG_SSL_CERTKEY_PATH=${SSL_CERTKEY_PATH:-"/etc/letsencrypt/live/$REVDEBUG_SERVER_NAME/privkey.pem"}
 REVDEBUG_AUTH_OPENID_SECRET=$(openssl rand -hex 12)
