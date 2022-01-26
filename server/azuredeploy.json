@@ -4,6 +4,7 @@
     "parameters":{
         "adminUsername":{
             "type":"string",
+            "defaultValue": "azureuser",
             "metadata":{
                 "description":"Username for the Virtual Machine."
             }
@@ -316,7 +317,7 @@
                             ]
                         },
                         "protectedSettings":{
-                            "commandToExecute":"[concat('bash init.sh', ' /home/', parameters('adminUsername'), ' ', parameters('letsEncryptMail'), ' ',reference(variables('publicIPAddressName')).dnsSettings.fqdn)], ' ', parameters('keycloakAdminUsername'), ' ', parameters('keycloakAdminPassword')"
+                            "commandToExecute":"[concat('bash init.sh', ' /home/', parameters('adminUsername'), ' ', parameters('letsEncryptMail'), ' ',reference(variables('publicIPAddressName')).dnsSettings.fqdn, ' ', parameters('keycloakAdminUsername'), ' ', parameters('keycloakAdminPassword'))]"
                         }
                     }
                 }
