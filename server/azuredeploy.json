@@ -316,7 +316,7 @@
                             ]
                         },
                         "protectedSettings":{
-                            "commandToExecute":"[concat('bash init.sh ', parameters('organizationKeyCode'), ' /home/', parameters('adminUsername'), ' ', parameters('letsEncryptMail'), ' ',reference(variables('publicIPAddressName')).dnsSettings.fqdn)], ' ', parameters('keycloakAdminUsername'), ' ', parameters('keycloakAdminPassword')"
+                            "commandToExecute":"[concat('bash init.sh', ' /home/', parameters('adminUsername'), ' ', parameters('letsEncryptMail'), ' ',reference(variables('publicIPAddressName')).dnsSettings.fqdn)], ' ', parameters('keycloakAdminUsername'), ' ', parameters('keycloakAdminPassword')"
                         }
                     }
                 }

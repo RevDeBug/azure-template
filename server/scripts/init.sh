@@ -136,11 +136,6 @@ set_variables() {
     KEYCLOAK_PASSWORD="$5"
 }
 
-if [ -z "$1" ]; then
-  echo "Missing RevDeBug OrganizationId parameter."
-  exit 1
-fi
-
 set_variables "$1" "$2" "$3" "$4" "$5"
 
 if [ ! -x "$(command -v docker)" ]; then
