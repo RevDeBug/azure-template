@@ -2,12 +2,6 @@
     "$schema":"https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion":"1.0.0.0",
     "parameters":{
-        "organizationKeyCode":{
-            "type":"string",
-            "metadata":{
-                "description":"RevDeBug organization key code. For more information, please refer to <a href=\"https://revdebug.gitbook.io/revdebug/installing-revdebug-server#prerequisite-creating-organization-on-portal-revdebug-com\">this article</a>."
-            }
-        },
         "adminUsername":{
             "type":"string",
             "metadata":{
@@ -89,7 +83,20 @@
             "metadata":{
                 "description":"Name of the Network Security Group"
             }
-        }
+        },
+        "keycloakAdminUsername":{
+            "type":"string",
+            "defaultValue":"admin",
+            "metadata":{
+                "description":"Name for the administrative user that will be created on Keycloak instance."
+            }
+        },
+        "keycloakAdminPassword":{
+            "type":"securestring",
+            "metadata":{
+                "description":"Keycloak administrative user password."
+            }
+        },
     },
     "variables":{
         "ubuntuOSVersion":"18.04-LTS",
@@ -305,11 +312,11 @@
                         "settings":{
                             "skipDos2Unix":false,
                             "fileUris":[
-                                "https://raw.githubusercontent.com/RevDeBug/azure-template/master/server/scripts/init.sh"
+                                "https://raw.githubusercontent.com/RevDeBug/azure-template/feat/licensing/server/scripts/init.sh"
                             ]
                         },
                         "protectedSettings":{
-                            "commandToExecute":"[concat('bash init.sh ', parameters('organizationKeyCode'), ' /home/', parameters('adminUsername'), ' ', parameters('letsEncryptMail'), ' ',reference(variables('publicIPAddressName')).dnsSettings.fqdn)]"
+                            "commandToExecute":"[concat('bash init.sh ', parameters('organizationKeyCode'), ' /home/', parameters('adminUsername'), ' ', parameters('letsEncryptMail'), ' ',reference(variables('publicIPAddressName')).dnsSettings.fqdn)], ' ', parameters('keycloakAdminUsername'), ' ', parameters('keycloakAdminPassword')"
                         }
                     }
                 }
