@@ -2,14 +2,9 @@
     "$schema":"https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion":"1.0.0.0",
     "parameters":{
-        "organizationKeyCode":{
-            "type":"string",
-            "metadata":{
-                "description":"RevDeBug organization key code. For more information, please refer to <a href=\"https://revdebug.gitbook.io/revdebug/installing-revdebug-server#prerequisite-creating-organization-on-portal-revdebug-com\">this article</a>."
-            }
-        },
         "adminUsername":{
             "type":"string",
+            "defaultValue": "azureuser",
             "metadata":{
                 "description":"Username for the Virtual Machine."
             }
@@ -69,33 +64,28 @@
                 "description":"The size of the VM"
             }
         },
-        "virtualNetworkName":{
+        "keycloakAdminUsername":{
             "type":"string",
-            "defaultValue":"vNet",
+            "defaultValue":"admin",
             "metadata":{
-                "description":"Name of the VNET"
+                "description":"Name for the administrative user that will be created on Keycloak instance."
             }
         },
-        "subnetName":{
-            "type":"string",
-            "defaultValue":"Subnet",
+        "keycloakAdminPassword":{
+            "type":"securestring",
             "metadata":{
-                "description":"Name of the subnet in the virtual network"
-            }
-        },
-        "networkSecurityGroupName":{
-            "type":"string",
-            "defaultValue":"SecGroupNet",
-            "metadata":{
-                "description":"Name of the Network Security Group"
+                "description":"Keycloak administrative user password."
             }
         }
     },
     "variables":{
         "ubuntuOSVersion":"18.04-LTS",
+        "virtualNetworkName": "vNet",
+        "subnetName": "subnetName",
+        "networkSecurityGroupName": "SecGroupNet",
         "publicIpAddressName":"[concat(parameters('vmName'), 'PublicIP' )]",
         "networkInterfaceName":"[concat(parameters('vmName'),'NetInt')]",
-        "subnetRef":"[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), parameters('subnetName'))]",
+        "subnetRef":"[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('virtualNetworkName'), variables('subnetName'))]",
         "osDiskType":"Standard_LRS",
         "subnetAddressPrefix":"10.1.0.0/24",
         "addressPrefix":"10.1.0.0/16",
@@ -118,8 +108,8 @@
             "name":"[variables('networkInterfaceName')]",
             "location":"[resourceGroup().location]",
             "dependsOn":[
-                "[resourceId('Microsoft.Network/networkSecurityGroups/', parameters('networkSecurityGroupName'))]",
-                "[resourceId('Microsoft.Network/virtualNetworks/', parameters('virtualNetworkName'))]",
+                "[resourceId('Microsoft.Network/networkSecurityGroups/', variables('networkSecurityGroupName'))]",
+                "[resourceId('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]",
                 "[resourceId('Microsoft.Network/publicIpAddresses/', variables('publicIpAddressName'))]"
             ],
             "properties":{
@@ -138,14 +128,14 @@
                     }
                 ],
                 "networkSecurityGroup":{
-                    "id":"[resourceId('Microsoft.Network/networkSecurityGroups',parameters('networkSecurityGroupName'))]"
+                    "id":"[resourceId('Microsoft.Network/networkSecurityGroups',variables('networkSecurityGroupName'))]"
                 }
             }
         },
         {
             "type":"Microsoft.Network/networkSecurityGroups",
             "apiVersion":"2019-02-01",
-            "name":"[parameters('networkSecurityGroupName')]",
+            "name":"[variables('networkSecurityGroupName')]",
             "location":"[resourceGroup().location]",
             "properties":{
                 "securityRules":[
@@ -207,7 +197,7 @@
         {
             "type":"Microsoft.Network/virtualNetworks",
             "apiVersion":"2019-04-01",
-            "name":"[parameters('virtualNetworkName')]",
+            "name":"[variables('virtualNetworkName')]",
             "location":"[resourceGroup().location]",
             "properties":{
                 "addressSpace":{
@@ -217,7 +207,7 @@
                 },
                 "subnets":[
                     {
-                        "name":"[parameters('subnetName')]",
+                        "name":"[variables('subnetName')]",
                         "properties":{
                             "addressPrefix":"[variables('subnetAddressPrefix')]",
                             "privateEndpointNetworkPolicies":"Enabled",
@@ -305,11 +295,11 @@
                         "settings":{
                             "skipDos2Unix":false,
                             "fileUris":[
-                                "https://raw.githubusercontent.com/RevDeBug/azure-template/master/server/scripts/init.sh"
+                                "https://raw.githubusercontent.com/RevDeBug/azure-template/feat/licensing/server/scripts/init.sh"
                             ]
                         },
                         "protectedSettings":{
-                            "commandToExecute":"[concat('bash init.sh ', parameters('organizationKeyCode'), ' /home/', parameters('adminUsername'), ' ', parameters('letsEncryptMail'), ' ',reference(variables('publicIPAddressName')).dnsSettings.fqdn)]"
+                            "commandToExecute":"[concat('bash init.sh', ' /home/', parameters('adminUsername'), ' ', parameters('letsEncryptMail'), ' ',reference(variables('publicIPAddressName')).dnsSettings.fqdn, ' ', parameters('keycloakAdminUsername'), ' ', parameters('keycloakAdminPassword'))]"
                         }
                     }
                 }

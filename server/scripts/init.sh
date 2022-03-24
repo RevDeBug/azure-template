@@ -47,10 +47,13 @@ install_rdm()
     cd revdebug
     cat > .env <<ENV
 # Organization ID obtained from portal.revdebug.com
-REVDEBUG_AUTH=$REVDEBUG_AUTH
 REVDEBUG_SERVER_NAME=$REVDEBUG_SERVER_NAME
+REVDEBUG_AUTH_OPENID_ADDRESS=https://${REVDEBUG_SERVER_NAME}/auth/realms/rdbRealm
 REVDEBUG_SSL_CERT_PATH=${SSL_CERT_PATH:-"/etc/letsencrypt/live/$REVDEBUG_SERVER_NAME/fullchain.pem"}
 REVDEBUG_SSL_CERTKEY_PATH=${SSL_CERTKEY_PATH:-"/etc/letsencrypt/live/$REVDEBUG_SERVER_NAME/privkey.pem"}
+REVDEBUG_AUTH_OPENID_SECRET=$(openssl rand -hex 12)
+KEYCLOAK_USER=$KEYCLOAK_USER
+KEYCLOAK_PASSWORD=$KEYCLOAK_PASSWORD
 ENV
 
     initialize_certbot
@@ -125,18 +128,14 @@ initialize_certbot()
 }
 
 set_variables() {
-    REVDEBUG_AUTH="$1"
-    REVDEBUG_WORKDIR="$2"
-    REVDEBUG_SSL_EMAIL="$3"
-    REVDEBUG_SERVER_NAME="$4"
+    REVDEBUG_WORKDIR="$1"
+    REVDEBUG_SSL_EMAIL="$2"
+    REVDEBUG_SERVER_NAME="$3"
+    KEYCLOAK_USER="$4"
+    KEYCLOAK_PASSWORD="$5"
 }
 
-if [ -z "$1" ]; then
-  echo "Missing RevDeBug OrganizationId parameter."
-  exit 1
-fi
-
-set_variables "$1" "$2" "$3" "$4"
+set_variables "$1" "$2" "$3" "$4" "$5"
 
 if [ ! -x "$(command -v docker)" ]; then
   echo 'Installing docker...'
