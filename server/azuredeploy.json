@@ -294,7 +294,7 @@
                         "settings":{
                             "skipDos2Unix":false,
                             "fileUris":[
-                                "https://raw.githubusercontent.com/RevDeBug/azure-template/master/server/scripts/init.sh"
+                                "https://raw.githubusercontent.com/RevDeBug/azure-template/test/ubuntu20/server/scripts/init.sh"
                             ]
                         },
                         "protectedSettings":{
