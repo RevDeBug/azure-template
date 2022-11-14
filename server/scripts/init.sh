@@ -9,29 +9,25 @@ REVDEBUG_ROOTVOLUME_PATH=${REVDEBUG_ROOTVOLUME_PATH:-/var/revdebug}
 install_docker()
 {
     # 1. Installing required applications
-    sudo apt-get update
-    sudo apt-get -y install \
-        apt-transport-https \
-        ca-certificates \
-        curl git\
-        gnupg-agent \
-        software-properties-common
+	sudo apt-get update
+	sudo apt-get -y install \
+		apt-transport-https \
+		ca-certificates \
+		curl git mc\
+		gnupg-agent \
+		software-properties-common
 
-    # 2. Adding docker repository    
-    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+	# 2. Adding docker repository
+	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 
-    sudo add-apt-repository \
-       "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-       $(lsb_release -cs) \
-       stable"
+	sudo add-apt-repository -y \
+		"deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+		$(lsb_release -cs) \
+		stable"
 
-    # 3. Installing latest docker
-    sudo apt-get update
-    sudo apt-get -y install docker-ce docker-ce-cli containerd.io
-    
-    # 4. Installing docker-compose
-    sudo curl -L "https://github.com/docker/compose/releases/download/1.29.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-    sudo chmod +x /usr/local/bin/docker-compose
+	# 3. Installing latest docker
+	sudo apt-get update
+	sudo apt-get -y install docker-ce docker-ce-cli containerd.io docker-compose-plugin
 }
 
 #RevDeBug DevOps Monitor installation
@@ -58,7 +54,7 @@ ENV
 
     initialize_certbot
 
-    sudo docker-compose -f docker-compose.yml -f docker-compose.certbot.yml up -d
+    sudo docker compose -f docker-compose.yml -f docker-compose.certbot.yml up -d
 }
 
 # Certbot initialization for SSL certificate.
@@ -78,7 +74,7 @@ initialize_certbot()
     echo "### Creating dummy certificate for $domains ..."
     path="/etc/letsencrypt/live/$domains"
     sudo mkdir -p "$data_path/conf/live/$domains"
-    sudo docker-compose -f docker-compose.init-cert.yml run --rm --entrypoint "\
+    sudo docker compose -f docker-compose.init-cert.yml run --rm --entrypoint "\
       openssl req -x509 -nodes -newkey rsa:$rsa_key_size -days 1\
         -keyout '$path/privkey.pem' \
         -out '$path/fullchain.pem' \
@@ -87,11 +83,11 @@ initialize_certbot()
 
 
     echo "### Starting nginx ..."
-    sudo docker-compose -f docker-compose.init-cert.yml up --force-recreate -d nginx
+    sudo docker compose -f docker-compose.init-cert.yml up --force-recreate -d nginx
     echo
 
     echo "### Deleting dummy certificate for $domains ..."
-    sudo docker-compose -f docker-compose.init-cert.yml run --rm --entrypoint "\
+    sudo docker compose -f docker-compose.init-cert.yml run --rm --entrypoint "\
       rm -Rf /etc/letsencrypt/live/$domains && \
       rm -Rf /etc/letsencrypt/archive/$domains && \
       rm -Rf /etc/letsencrypt/renewal/$domains.conf" certbot
@@ -114,7 +110,7 @@ initialize_certbot()
     # Enable staging mode if needed
     if [ $staging != "0" ]; then staging_arg="--staging"; fi
 
-    sudo docker-compose -f docker-compose.init-cert.yml run --rm --entrypoint "\
+    sudo docker compose -f docker-compose.init-cert.yml run --rm --entrypoint "\
       certbot certonly --webroot -w /var/www/certbot \
         $staging_arg \
         $email_arg \
@@ -124,7 +120,7 @@ initialize_certbot()
         -n \
         --force-renewal" certbot
     
-    sudo docker-compose -f docker-compose.init-cert.yml down
+    sudo docker compose -f docker-compose.init-cert.yml down
 }
 
 set_variables() {

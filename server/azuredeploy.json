@@ -79,7 +79,6 @@
         }
     },
     "variables":{
-        "ubuntuOSVersion":"18.04-LTS",
         "virtualNetworkName": "vNet",
         "subnetName": "subnetName",
         "networkSecurityGroupName": "SecGroupNet",
@@ -255,10 +254,10 @@
                         }
                     },
                     "imageReference":{
-                        "publisher":"Canonical",
-                        "offer":"UbuntuServer",
-                        "sku":"[variables('ubuntuOSVersion')]",
-                        "version":"latest"
+                        "publisher": "canonical",
+                        "offer": "0001-com-ubuntu-server-focal",
+                        "sku": "20_04-lts-gen2",
+                        "version": "latest"
                     }
                 },
                 "networkProfile":{
